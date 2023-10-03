@@ -1,23 +1,48 @@
-import logo from '../images/logo.svg';
-import '../styles/App.css';
+import React, { useState } from 'react';
+import UploadForm from './UploadForm';
+import HistoryPage from './HistoryPage';
 
 function App() {
+  // By default, the page is Upload
+  // History is initialized as an empty array
+  const [currentPage, setCurrentPage] = useState('upload');
+  const [uploadHistory, setUploadHistory] = useState([]);
+
+  // this function handles appending file info to the upload history array
+  const handleSubmit = (fileInfo) => {
+    setUploadHistory([...uploadHistory, fileInfo]);
+  };
+
+  // this function works like a navigator
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'upload':
+        return <UploadForm onSubmit={handleSubmit}/>;
+      case 'history':
+        return <HistoryPage historyArray={uploadHistory}/>;
+      default:
+        return null;
+    }
+  };
+
+  const handleNavigation = (page) => {
+    setCurrentPage(page);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <nav>
+        <ul>
+          <li>
+            <button onClick={() => handleNavigation('upload')}>Upload Image</button>
+          </li>
+          <li>
+            <button onClick={() => handleNavigation('history')}>Uploaded History</button>
+          </li>
+        </ul>
+      </nav>
+
+      {renderPage()}
     </div>
   );
 }
