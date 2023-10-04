@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import UploadForm from './UploadForm';
 import HistoryPage from './HistoryPage';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import { Toolbar } from '@mui/material';
 
 function App() {
   // By default, the page is Upload
@@ -30,20 +34,17 @@ function App() {
   };
 
   return (
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <button onClick={() => handleNavigation('upload')}>Upload Image</button>
-          </li>
-          <li>
-            <button onClick={() => handleNavigation('history')}>Uploaded History</button>
-          </li>
-        </ul>
-      </nav>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+            <Button onClick={() => handleNavigation('upload')} color="inherit">Upload Image</Button>
+            <Button onClick={() => handleNavigation('history')} color="inherit">Uploaded History</Button>
+        </Toolbar>
+      </AppBar>
+
 
       {renderPage()}
-    </div>
+    </Box>
   );
 }
 

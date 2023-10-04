@@ -1,4 +1,15 @@
 import React, { useState } from 'react';
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import { Box, Tab } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+
 
 function UploadForm({ onSubmit }) {
   // Initialize 3 'variables' file, name, date
@@ -14,6 +25,7 @@ function UploadForm({ onSubmit }) {
     setFileName(selectedFile.name);
     setDate(new Date().toLocaleString());
   };
+
 
 
   // This function will be futher developed for calling API for processing data. At this time,
@@ -42,13 +54,56 @@ function UploadForm({ onSubmit }) {
       }
   };
 
+  const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+  });
+
   return (
-    <div>
+    <Box>
       <h2>Upload .sol file</h2>
-      <input type="file" onChange={handleFileChange}/>
+      <Grid container direction="row" justifyContent="center" spacing={6}>
+        <Grid item>
+          <Grid container direction="column" justifyContent="center" alignItems="center">
+            <Button component="label" variant="contained">
+              Upload .sol file
+              <VisuallyHiddenInput type="file" onChange={handleFileChange}/>
+            </Button>
+            <h3>{name}</h3>
+          </Grid>
+        </Grid>
+
+        <Grid item>
+          <Grid container direction="column" justifyContent="center" alignItems="center">
+            <Button compoment="text" variant="contained" onClick={handleAnalyzing}>
+              Start analysis
+            </Button>
+          </Grid>  
+        </Grid>
+      </Grid>
+      
     
 
       <h3>Upload Information</h3>
+      <Table style={{ tableLayout: 'fixed'}} width={90}>
+        <TableBody>
+          <TableRow>
+            <TableCell variant="head" colSpan={3}> <b>Filename</b> </TableCell>
+            <TableCell scope="row" colSpan={9}>{name}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell variant="head" colSpan={3} > <b>Date uploaded</b> </TableCell>
+            <TableCell scope="row" colSpan={9} >{date}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
       <table>
         <tbody>
           <tr>
@@ -63,7 +118,7 @@ function UploadForm({ onSubmit }) {
       </table>
 
       <button onClick={handleAnalyzing}>Start Analyzing</button>
-    </div>
+    </Box>
   );
 }
 
