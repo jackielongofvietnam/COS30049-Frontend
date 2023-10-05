@@ -37,8 +37,8 @@ function App() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-            <Button onClick={() => handleNavigation('upload')} color="inherit">Upload Image</Button>
-            <Button onClick={() => handleNavigation('history')} color="inherit">Uploaded History</Button>
+            <Button onClick={() => handleNavigation('upload')} color="inherit">Upload New File</Button>
+            <Button onClick={() => handleNavigation('history')} color="inherit">Audit History</Button>
         </Toolbar>
       </AppBar>
 

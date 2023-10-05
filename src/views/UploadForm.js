@@ -5,9 +5,8 @@ import { Box, Tab } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
 
@@ -17,6 +16,8 @@ function UploadForm({ onSubmit }) {
   const [file, setFile] = useState(null);
   const [name, setFileName] = useState('');
   const [date, setDate] = useState('');
+  // const [risky, setRisky] = useState('');
+  // const [vulne_list, setVulneList] = useState('');
 
   // When file is uploaded, set the values for 3 'variables' above
   const handleFileChange = (event) => {
@@ -24,6 +25,8 @@ function UploadForm({ onSubmit }) {
     setFile(selectedFile);
     setFileName(selectedFile.name);
     setDate(new Date().toLocaleString());
+    // setRisky("Yes");
+    // setVulneList("...");
   };
 
 
@@ -38,6 +41,8 @@ function UploadForm({ onSubmit }) {
             fileName: name,
             uploadDate: date,
             fileData: reader.result,
+            // risky_bool: risky,
+            // vulne_lists: vulne_list,
           };
 
           // call the onSubmit property to send data to HistoryPage Component
@@ -67,8 +72,7 @@ function UploadForm({ onSubmit }) {
   });
 
   return (
-    <Box>
-      <h2>Upload .sol file</h2>
+    <Box sx={{ m: 6 }}>
       <Grid container direction="row" justifyContent="center" spacing={6}>
         <Grid item>
           <Grid container direction="column" justifyContent="center" alignItems="center">
@@ -89,35 +93,28 @@ function UploadForm({ onSubmit }) {
         </Grid>
       </Grid>
       
-    
-
-      <h3>Upload Information</h3>
       <Table style={{ tableLayout: 'fixed'}} width={90}>
-        <TableBody>
-          <TableRow>
-            <TableCell variant="head" colSpan={3}> <b>Filename</b> </TableCell>
-            <TableCell scope="row" colSpan={9}>{name}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell variant="head" colSpan={3} > <b>Date uploaded</b> </TableCell>
-            <TableCell scope="row" colSpan={9} >{date}</TableCell>
-          </TableRow>
-        </TableBody>
+        
+          <TableBody>
+            <TableRow>
+              <TableCell variant="head" colSpan={3}> <b>Filename</b> </TableCell>
+              <TableCell scope="row" colSpan={9}>{name}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell variant="head" colSpan={3} > <b>Date uploaded</b> </TableCell>
+              <TableCell scope="row" colSpan={9} >{date}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell variant="head" colSpan={3} > <b>Risky?</b> </TableCell>
+              <TableCell scope="row" colSpan={9} ></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell variant="head" colSpan={3} > <b>Vulnerabilities list</b> </TableCell>
+              <TableCell scope="row" colSpan={9} ></TableCell>
+            </TableRow>
+          </TableBody>
+        
       </Table>
-      <table>
-        <tbody>
-          <tr>
-            <td>File Name</td>
-            <td>{name}</td>
-          </tr>
-          <tr>
-            <td>Upload Date</td>
-            <td>{date}</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <button onClick={handleAnalyzing}>Start Analyzing</button>
     </Box>
   );
 }
