@@ -52,8 +52,8 @@ function HistoryPage({ historyArray }) {
           <TableRow>
             <StyledTableCell>File Name</StyledTableCell>
             <StyledTableCell>Upload Date</StyledTableCell>
-            <StyledTableCell>Risky?</StyledTableCell>
-            <StyledTableCell>Vulnerabilities list</StyledTableCell>
+            <StyledTableCell>Status</StyledTableCell>
+            <StyledTableCell>Vulnerabilities</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -61,8 +61,8 @@ function HistoryPage({ historyArray }) {
             <StyledTableRow key={index}>
               <StyledTableCell>{historyItem.fileName}</StyledTableCell>
               <StyledTableCell>{historyItem.uploadDate}</StyledTableCell>
-              <StyledTableCell>Yes</StyledTableCell>
-              <StyledTableCell>Under development</StyledTableCell>
+              <StyledTableCell>{historyItem.statusData}</StyledTableCell>
+              <StyledTableCell>{historyItem.vulneData}</StyledTableCell>
               {/* <td>{historyItem.risky_bool}</td>
               <td>{historyItem.vulne_lists}</td> */}
             </StyledTableRow>

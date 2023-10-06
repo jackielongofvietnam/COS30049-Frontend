@@ -16,17 +16,18 @@ function UploadForm({ onSubmit }) {
   const [file, setFile] = useState(null);
   const [name, setFileName] = useState('');
   const [date, setDate] = useState('');
-  // const [risky, setRisky] = useState('');
-  // const [vulne_list, setVulneList] = useState('');
+   const [status, setStatus] = useState('');
+   const [vulne_list, setVulneList] = useState('');
 
   // When file is uploaded, set the values for 3 'variables' above
   const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
+    const selectedFile = event.target.files[0]; 
+    const vulne = "- Security holes (at line :40)\n + Suggestion: remove the line\n\n- Code bug (at line :51)\n + Suggestion: remove the line";
     setFile(selectedFile);
     setFileName(selectedFile.name);
     setDate(new Date().toLocaleString());
-    // setRisky("Yes");
-    // setVulneList("...");
+    setStatus("Risky / Save");
+    setVulneList(vulne);
   };
 
 
@@ -41,8 +42,8 @@ function UploadForm({ onSubmit }) {
             fileName: name,
             uploadDate: date,
             fileData: reader.result,
-            // risky_bool: risky,
-            // vulne_lists: vulne_list,
+            statusData: status,
+            vulneData: vulne_list,
           };
 
           // call the onSubmit property to send data to HistoryPage Component
@@ -55,7 +56,8 @@ function UploadForm({ onSubmit }) {
         setFile(null);
         setFileName('');
         setDate('');
-
+        setStatus('');
+        setVulneList('');
       }
   };
 
@@ -105,12 +107,12 @@ function UploadForm({ onSubmit }) {
               <TableCell scope="row" colSpan={9} >{date}</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell variant="head" colSpan={3} > <b>Risky?</b> </TableCell>
-              <TableCell scope="row" colSpan={9} ></TableCell>
+              <TableCell variant="head" colSpan={3} > <b>Status</b> </TableCell>
+              <TableCell scope="row" colSpan={9} >{status}</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell variant="head" colSpan={3} > <b>Vulnerabilities list</b> </TableCell>
-              <TableCell scope="row" colSpan={9} ></TableCell>
+              <TableCell variant="head" colSpan={3} > <b>Vulnerabilities</b> </TableCell>
+              <TableCell scope="row" colSpan={9} >{vulne_list}</TableCell>
             </TableRow>
           </TableBody>
         
