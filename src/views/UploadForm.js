@@ -26,7 +26,7 @@ function UploadForm({ onSubmit }) {
     setFile(selectedFile);
     setFileName(selectedFile.name);
     setDate(new Date().toLocaleString());
-    setStatus("Risky / Save");
+    setStatus("Risky / Safe");
     setVulneList(vulne);
   };
 
