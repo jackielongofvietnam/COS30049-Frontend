@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
-import { Box } from '@mui/material';
+import { Box, Tab } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 
 
@@ -25,7 +26,7 @@ function UploadForm({ onSubmit }) {
     setFile(selectedFile);
     setFileName(selectedFile.name);
     setDate(new Date().toLocaleString());
-    setStatus("Risky / Safe");
+    setStatus("Risky / Save");
     setVulneList(vulne);
   };
 
@@ -79,7 +80,7 @@ function UploadForm({ onSubmit }) {
           <Grid container direction="column" justifyContent="center" alignItems="center">
             <Button component="label" variant="contained">
               Upload .sol file
-              <VisuallyHiddenInput type="file" onChange={handleFileChange} accept=".sol"/>
+              <VisuallyHiddenInput type="file" onChange={handleFileChange}/>
             </Button>
             <h3>{name}</h3>
           </Grid>

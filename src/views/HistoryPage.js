@@ -39,7 +39,7 @@ function HistoryPage({ historyArray }) {
         <Grid item>
           <Grid container direction="column" justifyContent="center" alignItems="center">
             <h2>Audit history</h2>
-            <Box sx={{ display: 'flex',  alignItems: 'center' }}>
+            <Box sx={{ display: 'flex',  alignItems: 'center', p: 2 }}>
               <AccountCircleIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
               <TextField id="search_filename" label="Search filename" variant="filled" />
             </Box>
