@@ -23,3 +23,15 @@ npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
 ```shell
 npm start
 ```
+
+
+### Login
+
+1. Start the application by executing the following command:
+```shell
+npm start
+```
+2. Run the server
+```shell
+npm loginAPI
+```
