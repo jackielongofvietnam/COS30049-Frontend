@@ -33,5 +33,5 @@ npm start
 ```
 2. Run the server
 ```shell
-npm loginAPI
+node loginAPI
 ```
