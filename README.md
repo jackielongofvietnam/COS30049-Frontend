@@ -23,3 +23,20 @@ npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
 ```shell
 npm start
 ```
+
+## How to start the server
+
+1. Change the directory to backend
+```shell
+cd Backend
+```
+
+2. Ensure that Python is already installed, activate the environment
+```shell
+. .venv/bin/activate
+```
+
+3. Run the server
+```shell
+python -m flask run
+```
