@@ -26,6 +26,16 @@ const Login = ( {LogInSuccess} ) => {
 
     // Handle the response
     // ...
+
+    if (response.ok){
+        const data = await response.json();
+
+        if (data.status == "success"){
+            LogInSuccess();
+        }else if (data.status == "failure"){
+            alert("Wrong password");
+        }
+    }
   } catch (error) {
     console.error("Error:", error);
   }
