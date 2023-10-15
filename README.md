@@ -40,3 +40,15 @@ cd Backend
 ```shell
 python -m flask run
 ```
+=======
+
+### Login
+
+1. Start the application by executing the following command:
+```shell
+npm start
+```
+2. Run the server
+```shell
+node loginAPI
+```

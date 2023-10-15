@@ -48,8 +48,6 @@ function App() {
               <Button onClick={() => handleNavigation('history')} color="inherit">Audit History</Button>
           </Toolbar>
         </AppBar>
-
-
         {renderPage()}
       </Box>
     );
