@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { useCookies } from 'react-cookie';
 
 const Login = ( {LogInSuccess} ) => {
-  const [cookies, setCookie] = useCookies(['user']);
-  const [username, setUsername] = useState(cookies.username);
-  const [password, setPassword] = useState(cookies.password);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
 
   const handleUsernameChange = (e) => {
@@ -46,11 +44,6 @@ const Login = ( {LogInSuccess} ) => {
   }
 };
 
-const loginCookies = () => {
-  setCookie('username', username, { path: '/' });
-  setCookie('password', password, { path: '/' });
-};
-
   return (
     <div>
       <h1>Login</h1>
@@ -72,7 +65,7 @@ const loginCookies = () => {
           />
         </div>
         <div>
-          <button type="submit" onClick={loginCookies}>Submit</button>
+          <button type="submit">Submit</button>
         </div>
       </form>
     </div>
