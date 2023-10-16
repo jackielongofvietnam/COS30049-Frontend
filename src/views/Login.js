@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useCookies } from 'react-cookie';
 
 const Login = ( {LogInSuccess} ) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [cookies, setCookie] = useCookies(['user']);
+  const [username, setUsername] = useState(cookies.username);
+  const [password, setPassword] = useState(cookies.password);
+
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -14,6 +17,8 @@ const Login = ( {LogInSuccess} ) => {
 
   const handleLogin = async (e) => {
   e.preventDefault();
+
+  
 
   try {
     const response = await fetch("http://localhost:5000/api/login", {
@@ -41,6 +46,11 @@ const Login = ( {LogInSuccess} ) => {
   }
 };
 
+const loginCookies = () => {
+  setCookie('username', username, { path: '/' });
+  setCookie('password', password, { path: '/' });
+};
+
   return (
     <div>
       <h1>Login</h1>
@@ -62,7 +72,7 @@ const Login = ( {LogInSuccess} ) => {
           />
         </div>
         <div>
-          <button type="submit">Submit</button>
+          <button type="submit" onClick={loginCookies}>Submit</button>
         </div>
       </form>
     </div>
