@@ -6,11 +6,13 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { Toolbar } from '@mui/material';
 import Login from './Login';
+import { useCookies } from 'react-cookie';
 
 function App() {
   // By default, the page is Upload
   // History is initialized as an empty array
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [cookies, setCookie] = useCookies(['user']);
+  const [loggedIn, setLoggedIn] = useState(cookies.loggedIn);
   const [currentPage, setCurrentPage] = useState('upload');
   const [uploadHistory, setUploadHistory] = useState([]);
 
@@ -21,7 +23,13 @@ function App() {
 
   const handleLogIn = () => {
     setLoggedIn(true);
+    setCookie('loggedIn', true, { path: '/' });
   };
+
+  const logout = () => {
+    setLoggedIn(false);
+    setCookie('loggedIn', false, { path: '/' })
+  }
 
   // this function works like a navigator
   const renderPage = () => {
@@ -41,15 +49,19 @@ function App() {
 
   if (loggedIn){
     return (
-      <Box sx={{ flexGrow: 1 }}>
+      <Box>
         <AppBar position="static">
           <Toolbar>
+            <Box sx={{ flexGrow: 1 }}>
               <Button onClick={() => handleNavigation('upload')} color="inherit">Upload New File</Button>
               <Button onClick={() => handleNavigation('history')} color="inherit">Audit History</Button>
+            </Box>
+            <Box sx={{ flexGrow: 0 }}>
+              <Button onClick={() => logout()} color="inherit">Logout</Button>
+            </Box>
           </Toolbar>
         </AppBar>
-
-
+        
         {renderPage()}
       </Box>
     );
