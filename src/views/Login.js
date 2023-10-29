@@ -21,7 +21,7 @@ const Login = ( {LogInSuccess} ) => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ 'userName': username, 'password': password }),
+      body: JSON.stringify({ 'username': username, 'password': password }),
     });
 
     // Handle the response
