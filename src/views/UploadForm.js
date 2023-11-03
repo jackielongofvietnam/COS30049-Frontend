@@ -7,6 +7,8 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
+import APIGateway from '../components/APIGateway.js';
+// import callback, { useCallback } from 'react';
 
 
 function UploadForm({ onSubmit }) {
@@ -21,42 +23,48 @@ function UploadForm({ onSubmit }) {
   // When file is uploaded, set the values for 3 'variables' above
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0]; 
-    const vulne = "- Security holes (at line :40)\n + Suggestion: remove the line\n\n- Code bug (at line :51)\n + Suggestion: remove the line";
     setFile(selectedFile);
     setFileName(selectedFile.name);
-    setDate(new Date().toLocaleString());
-    setStatus("Risky / Save");
-    setVulneList(vulne);
+    setDate(new Date().toLocaleString());   // temporarily show system date (the result date will be shown later)
+    // setStatus("Risky / Save");
+    // setVulneList(vulne);
   };
 
 
 
   // This function will be futher developed for calling API for processing data. At this time,
   // it just only send file info to the HistoryPage Component
+  const readFileContent = (file, callback) => {
+    const reader = new FileReader();
+
+    reader.onload = async () => {
+      const fileInfo = {
+        fileName: name,
+        fileData: reader.result,
+      };
+      const result = await APIGateway.AnalyzeSOLFile(fileInfo);
+      callback(result);
+    }
+
+    reader.readAsDataURL(file);
+  }
+
   const handleAnalyzing = () => {
     if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const fileInfo = {
-            fileName: name,
-            uploadDate: date,
-            fileData: reader.result,
-            statusData: status,
-            vulneData: vulne_list,
-          };
+        readFileContent(file, (result) => {
+          if (result != null){
+            alert("Starting to analyze, visit uploaded history for more");
 
-          // call the onSubmit property to send data to HistoryPage Component
-          onSubmit(fileInfo);
-        };
-        reader.readAsDataURL(file);
-
-        alert("Starting to analyze, visit uploaded history for more");
-
-        setFile(null);
-        setFileName('');
-        setDate('');
-        setStatus('');
-        setVulneList('');
+            let vulnerabilities = result.vulnerabilities.map((vulnerability) => {
+              return `- ${vulnerability.issue}. \n   + Suggestion: ${vulnerability.suggestion}. \n`;
+            }).join('');
+            
+            setFileName(result.file_name)
+            setDate(result.date_uploaded);
+            setStatus(result.status);
+            setVulneList(vulnerabilities);
+          }
+        });
       }
   };
 
