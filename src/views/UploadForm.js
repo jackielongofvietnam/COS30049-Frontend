@@ -17,8 +17,8 @@ function UploadForm({ onSubmit }) {
   const [file, setFile] = useState(null);
   const [name, setFileName] = useState('');
   const [date, setDate] = useState('');
-   const [status, setStatus] = useState('');
-   const [vulne_list, setVulneList] = useState('');
+  const [status, setStatus] = useState('');
+  const [vulne_list, setVulneList] = useState('');
 
   // When file is uploaded, set the values for 3 'variables' above
   const handleFileChange = (event) => {
@@ -51,6 +51,7 @@ function UploadForm({ onSubmit }) {
 
   const handleAnalyzing = () => {
     if (file) {
+      // read and upload the .SOL file + update the file analyzing result
         readFileContent(file, (result) => {
           if (result != null){
             alert("Starting to analyze, visit uploaded history for more");
@@ -65,6 +66,8 @@ function UploadForm({ onSubmit }) {
             setVulneList(vulnerabilities);
           }
         });
+
+        onSubmit();
       }
   };
 

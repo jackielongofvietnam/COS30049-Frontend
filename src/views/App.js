@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import UploadForm from './UploadForm';
 import HistoryPage from './HistoryPage';
 import AppBar from '@mui/material/AppBar';
@@ -7,19 +7,36 @@ import Button from '@mui/material/Button';
 import { Toolbar } from '@mui/material';
 import Login from './Login';
 import { useCookies } from 'react-cookie';
+import APIGateway from '../components/APIGateway';
 
 function App() {
   // By default, the page is Upload
   // History is initialized as an empty array
+  const temp = APIGateway.GetAuditHistory("");
   const [cookies, setCookie] = useCookies(['user']);
   const [loggedIn, setLoggedIn] = useState(cookies.loggedIn);
   const [currentPage, setCurrentPage] = useState('upload');
-  const [uploadHistory, setUploadHistory] = useState([]);
+  const [mainHistoryArray, setMainHistoryArray] = useState(temp);
+
+  useEffect(() => { 
+    async function fetchData() {
+      const array = await APIGateway.GetAuditHistory("");
+      setMainHistoryArray(array);
+    }
+    fetchData();
+  }, []);
+  
 
   // this function handles appending file info to the upload history array
-  const handleSubmit = (fileInfo) => {
-    setUploadHistory([...uploadHistory, fileInfo]);
+  const handleSubmit = async () => {
+    const array = await APIGateway.GetAuditHistory("");
+    setMainHistoryArray(array);
   };
+
+  const updateHistoryArray = async (param) => {
+    const array = await APIGateway.GetAuditHistory(param);
+    setMainHistoryArray(array);
+  }
 
   const handleLogIn = () => {
     setLoggedIn(true);
@@ -37,7 +54,7 @@ function App() {
       case 'upload':
         return <UploadForm onSubmit={handleSubmit}/>;
       case 'history':
-        return <HistoryPage historyArray={uploadHistory}/>;
+        return <HistoryPage historyArray={mainHistoryArray} onParamPass={updateHistoryArray}/>;
       default:
         return null;
     }

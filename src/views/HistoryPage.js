@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Tab } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -31,17 +31,31 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function HistoryPage({ historyArray }) {
+function HistoryPage({ historyArray, onParamPass }) {
+  // const [historyArray, setHistoryArray] = useState([]);
+  const [param, setParam] = useState('');
+  // const onUpdate = () => {}
+
+  const handleSearchInput = (event) => {
+    setParam(event.target.value);
+    onParamPass(param);
+  }
+
+  const VulnerabilitiesToString = (vulnerabilities) => {
+    return vulnerabilities.map((vulnerability) => {
+      return `- ${vulnerability.issue}. \n   + Suggestion: ${vulnerability.suggestion}. \n`;
+    }).join('');
+  }
+
   return (
     <div>
-      
       <Grid container direction="row" justifyContent="center" spacing={6}>
         <Grid item>
           <Grid container direction="column" justifyContent="center" alignItems="center">
             <h2>Audit history</h2>
             <Box sx={{ display: 'flex',  alignItems: 'center', p: 2 }}>
               <AccountCircleIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-              <TextField id="search_filename" label="Search filename" variant="filled" />
+              <TextField id="search_filename" label="Search filename" variant="filled" value={param} onChange={handleSearchInput} />
             </Box>
           </Grid>
         </Grid>
@@ -59,10 +73,10 @@ function HistoryPage({ historyArray }) {
         <TableBody>
           {historyArray.map((historyItem, index) => (
             <StyledTableRow key={index}>
-              <StyledTableCell>{historyItem.fileName}</StyledTableCell>
-              <StyledTableCell>{historyItem.uploadDate}</StyledTableCell>
-              <StyledTableCell>{historyItem.statusData}</StyledTableCell>
-              <StyledTableCell>{historyItem.vulneData}</StyledTableCell>
+              <StyledTableCell>{historyItem.file_name}</StyledTableCell>
+              <StyledTableCell>{historyItem.date_uploaded}</StyledTableCell>
+              <StyledTableCell>{historyItem.status}</StyledTableCell>
+              <StyledTableCell>{VulnerabilitiesToString(historyItem.vulnerabilities)}</StyledTableCell>
               {/* <td>{historyItem.risky_bool}</td>
               <td>{historyItem.vulne_lists}</td> */}
             </StyledTableRow>
