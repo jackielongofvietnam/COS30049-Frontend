@@ -10,7 +10,7 @@ class APIGateway extends React.Component{
                 },
                 body: JSON.stringify({'file_name': file.file_name, 'file_content': file.file_content}),
             });
-            alert(JSON.stringify({'file_name': file.file_name, 'file_content': file.file_content}));
+
             const data = await response.json();
             // audit response
             if (data.status === 201){       // success
@@ -34,7 +34,7 @@ class APIGateway extends React.Component{
             // audit response
             if (data.status === 201){       // success
 
-                return await data.data.audit_history;
+                return await data.data;
             }
             else{
                 return await null;

@@ -36,7 +36,7 @@ function UploadForm({ onSubmit }) {
     reader.onload = async () => {
       const fileInfo = {
         file_name: name,
-        file_content: reader.result.replace(/\r?\n/g, '\\n'),
+        file_content: reader.result.replace(/\r?\n/g, '\n'),
       };
       const result = await APIGateway.AnalyzeSOLFile(fileInfo);
       callback(result); // invoke event in App.js
