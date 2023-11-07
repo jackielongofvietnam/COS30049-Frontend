@@ -8,13 +8,12 @@ class APIGateway extends React.Component{
                 headers: {
                     "Content-Type": 'application/json'
                 },
-                body: JSON.stringify({'file_name': file.fileName, 'file_content': file.fileData}),
+                body: JSON.stringify({'file_name': file.file_name, 'file_content': file.file_content}),
             });
-    
+            alert(JSON.stringify({'file_name': file.file_name, 'file_content': file.file_content}));
             const data = await response.json();
             // audit response
             if (data.status === 201){       // success
-
                 return await data.data;
             }
             else{

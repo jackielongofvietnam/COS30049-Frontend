@@ -32,9 +32,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function HistoryPage({ historyArray, onParamPass }) {
-  // const [historyArray, setHistoryArray] = useState([]);
   const [param, setParam] = useState('');
-  // const onUpdate = () => {}
 
   const handleSearchInput = (event) => {
     setParam(event.target.value);
@@ -77,8 +75,6 @@ function HistoryPage({ historyArray, onParamPass }) {
               <StyledTableCell>{historyItem.date_uploaded}</StyledTableCell>
               <StyledTableCell>{historyItem.status}</StyledTableCell>
               <StyledTableCell>{VulnerabilitiesToString(historyItem.vulnerabilities)}</StyledTableCell>
-              {/* <td>{historyItem.risky_bool}</td>
-              <td>{historyItem.vulne_lists}</td> */}
             </StyledTableRow>
           ))}
         </TableBody>

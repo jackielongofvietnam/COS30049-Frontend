@@ -17,8 +17,8 @@ function UploadForm({ onSubmit }) {
   const [file, setFile] = useState(null);
   const [name, setFileName] = useState('');
   const [date, setDate] = useState('');
-  const [status, setStatus] = useState('');
-  const [vulne_list, setVulneList] = useState('');
+   const [status, setStatus] = useState('');
+   const [vulne_list, setVulneList] = useState('');
 
   // When file is uploaded, set the values for 3 'variables' above
   const handleFileChange = (event) => {
@@ -30,8 +30,6 @@ function UploadForm({ onSubmit }) {
     // setVulneList(vulne);
   };
 
-
-
   // This function will be futher developed for calling API for processing data. At this time,
   // it just only send file info to the HistoryPage Component
   const readFileContent = (file, callback) => {
@@ -39,19 +37,19 @@ function UploadForm({ onSubmit }) {
 
     reader.onload = async () => {
       const fileInfo = {
-        fileName: name,
-        fileData: reader.result,
+        file_name: name,
+        file_content: reader.result.replace(/\r?\n/g, '\\n'),
       };
       const result = await APIGateway.AnalyzeSOLFile(fileInfo);
-      callback(result);
+      callback(result); // invoke event in App.js
     }
 
-    reader.readAsDataURL(file);
+    reader.readAsText(file);
+
   }
 
   const handleAnalyzing = () => {
     if (file) {
-      // read and upload the .SOL file + update the file analyzing result
         readFileContent(file, (result) => {
           if (result != null){
             alert("Starting to analyze, visit uploaded history for more");
@@ -64,10 +62,10 @@ function UploadForm({ onSubmit }) {
             setDate(result.date_uploaded);
             setStatus(result.status);
             setVulneList(vulnerabilities);
+          } else {
+            alert("File not readable!");
           }
         });
-
-        onSubmit();
       }
   };
 

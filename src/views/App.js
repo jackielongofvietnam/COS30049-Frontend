@@ -12,11 +12,10 @@ import APIGateway from '../components/APIGateway';
 function App() {
   // By default, the page is Upload
   // History is initialized as an empty array
-  const temp = APIGateway.GetAuditHistory("");
   const [cookies, setCookie] = useCookies(['user']);
   const [loggedIn, setLoggedIn] = useState(cookies.loggedIn);
   const [currentPage, setCurrentPage] = useState('upload');
-  const [mainHistoryArray, setMainHistoryArray] = useState(temp);
+  const [mainHistoryArray, setMainHistoryArray] = useState();
 
   useEffect(() => { 
     async function fetchData() {
