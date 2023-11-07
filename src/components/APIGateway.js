@@ -43,6 +43,31 @@ class APIGateway extends React.Component{
             alert(error);
         }
     }
+
+    static Login = async (user_name, password) => {
+        try {
+            const response = await fetch("http://localhost:5000/api/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({ 'user_name': user_name, 'password': password }),
+            });
+        
+            // Handle the response
+            // ...
+        
+            const data = await response.json();
+    
+            if (data.status === 201){
+                return await data.data;
+            } else {
+                return await null;
+            }
+          } catch (error) {
+            console.error("Error:", error);
+          }
+    }
 }
 
 export default APIGateway;

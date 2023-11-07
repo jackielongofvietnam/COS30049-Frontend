@@ -26,8 +26,6 @@ function UploadForm({ onSubmit }) {
     setFile(selectedFile);
     setFileName(selectedFile.name);
     setDate(new Date().toLocaleString());   // temporarily show system date (the result date will be shown later)
-    // setStatus("Risky / Save");
-    // setVulneList(vulne);
   };
 
   // This function will be futher developed for calling API for processing data. At this time,
