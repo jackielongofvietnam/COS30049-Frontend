@@ -29,11 +29,10 @@ class APIGateway extends React.Component{
             const response = await fetch(`http://localhost:5000/api/audit-history?search=${search_param}`,{
                 method: 'GET',
             });
-    
+
             const data = await response.json();
             // audit response
-            if (data.status === 201){       // success
-
+            if (data.status === 200){       // success
                 return await data.data;
             }
             else{
@@ -64,9 +63,25 @@ class APIGateway extends React.Component{
             } else {
                 return await null;
             }
-          } catch (error) {
+        } catch (error) {
             console.error("Error:", error);
-          }
+        }
+    }
+
+    static Logout = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/api/logout", {
+               method: "POST", 
+            });
+
+            const data = await response.json();
+
+            if (data.status === 200){
+               await alert(data.message); 
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
     }
 }
 

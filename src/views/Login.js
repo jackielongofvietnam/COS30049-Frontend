@@ -24,8 +24,6 @@ const Login = ( {LogInSuccess} ) => {
   else{
     LogInSuccess();
   }
-    
-  
 };
 
   return (

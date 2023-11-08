@@ -38,11 +38,13 @@ function App() {
   }
 
   const handleLogIn = () => {
+    // localStorage.setItem('user_name', )
     setLoggedIn(true);
-    setCookie('loggedIn', true, { path: '/' });
+    setCookie('loggedIn', true, { path: '/' })
   };
 
-  const logout = () => {
+  const logout = async () => {
+    await APIGateway.Logout();
     setLoggedIn(false);
     setCookie('loggedIn', false, { path: '/' })
   }

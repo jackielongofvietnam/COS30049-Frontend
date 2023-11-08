@@ -31,18 +31,15 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+const IssueColor = { color: 'red'};
+const SuggestionColor = {color: 'green'};
+
 function HistoryPage({ historyArray, onParamPass }) {
   const [param, setParam] = useState('');
 
   const handleSearchInput = (event) => {
     setParam(event.target.value);
     onParamPass(param);
-  }
-
-  const VulnerabilitiesToString = (vulnerabilities) => {
-    return vulnerabilities.map((vulnerability) => {
-      return `- ${vulnerability.issue}. \n   + Suggestion: ${vulnerability.suggestion}. \n`;
-    }).join('');
   }
 
   return (
@@ -74,7 +71,15 @@ function HistoryPage({ historyArray, onParamPass }) {
               <StyledTableCell>{historyItem.file_name}</StyledTableCell>
               <StyledTableCell>{historyItem.date_uploaded}</StyledTableCell>
               <StyledTableCell>{historyItem.status}</StyledTableCell>
-              <StyledTableCell>{VulnerabilitiesToString(historyItem.vulnerabilities)}</StyledTableCell>
+              <StyledTableCell>
+              {historyItem.vulnerabilities.map((vulnerability, idx) => (
+                <span key={index}>
+                  <p><b><span style={IssueColor}>- Issue: </span></b>{vulnerability.issue}</p>
+                  <p><b><span style={SuggestionColor}>+ Suggestion: </span></b>{vulnerability.suggestion}</p>
+                  <br></br>
+                </span>
+              ))}
+              </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

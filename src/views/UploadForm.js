@@ -18,7 +18,7 @@ function UploadForm({ onSubmit }) {
   const [name, setFileName] = useState('');
   const [date, setDate] = useState('');
    const [status, setStatus] = useState('');
-   const [vulne_list, setVulneList] = useState('');
+   const [vulne_list, setVulneList] = useState([]);
 
   // When file is uploaded, set the values for 3 'variables' above
   const handleFileChange = (event) => {
@@ -51,15 +51,11 @@ function UploadForm({ onSubmit }) {
         readFileContent(file, (result) => {
           if (result != null){
             alert("Starting to analyze, visit uploaded history for more");
-
-            let vulnerabilities = result.vulnerabilities.map((vulnerability) => {
-              return `- ${vulnerability.issue}. \n   + Suggestion: ${vulnerability.suggestion}. \n`;
-            }).join('');
             
             setFileName(result.file_name)
             setDate(result.date_uploaded);
             setStatus(result.status);
-            setVulneList(vulnerabilities);
+            setVulneList(result.vulnerabilities);
           } else {
             alert("File not readable!");
           }
@@ -78,6 +74,9 @@ function UploadForm({ onSubmit }) {
     whiteSpace: 'nowrap',
     width: 1,
   });
+
+  const IssueColor = { color: 'red'};
+  const SuggestionColor = {color: 'green'};
 
   return (
     <Box sx={{ m: 6 }}>
@@ -118,7 +117,15 @@ function UploadForm({ onSubmit }) {
             </TableRow>
             <TableRow>
               <TableCell variant="head" colSpan={3} > <b>Vulnerabilities</b> </TableCell>
-              <TableCell scope="row" colSpan={9} >{vulne_list}</TableCell>
+              <TableCell scope="row" colSpan={9} >
+                {vulne_list.map((vulnerability, index) => (
+                  <span key={index}>
+                    <p><b><span style={IssueColor}>- Issue: </span></b>{vulnerability.issue}</p>
+                    <p><b><span style={SuggestionColor}>+ Suggestion: </span></b>{vulnerability.suggestion}</p>
+                    <br></br>
+                  </span>
+                ))}
+              </TableCell>
             </TableRow>
           </TableBody>
         
