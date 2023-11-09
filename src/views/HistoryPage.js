@@ -36,6 +36,10 @@ const SuggestionColor = {color: 'green'};
 
 function HistoryPage({ historyArray, onParamPass }) {
   const [param, setParam] = useState('');
+  var array = [];
+  if (historyArray){
+    array = [...historyArray];
+  } 
 
   const handleSearchInput = (event) => {
     setParam(event.target.value);
@@ -66,7 +70,7 @@ function HistoryPage({ historyArray, onParamPass }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {historyArray.map((historyItem, index) => (
+          {array.map((historyItem, index) => (
             <StyledTableRow key={index}>
               <StyledTableCell>{historyItem.file_name}</StyledTableCell>
               <StyledTableCell>{historyItem.date_uploaded}</StyledTableCell>
