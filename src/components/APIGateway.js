@@ -6,7 +6,8 @@ class APIGateway extends React.Component{
             const response = await fetch("http://localhost:5000/api/audit",{
                 method: 'POST',
                 headers: {
-                    "Content-Type": 'application/json'
+                    "Content-Type": 'application/json',
+                    "Authorization": localStorage.getItem('token')
                 },
                 body: JSON.stringify({'file_name': file.file_name, 'file_content': file.file_content}),
             });
@@ -28,6 +29,7 @@ class APIGateway extends React.Component{
         try{
             const response = await fetch(`http://localhost:5000/api/audit-history?search=${search_param}`,{
                 method: 'GET',
+                "Authorization": localStorage.getItem('token')
             });
 
             const data = await response.json();
@@ -59,6 +61,7 @@ class APIGateway extends React.Component{
             const data = await response.json();
     
             if (data.status === 201){
+                localStorage.setItem('token', data.data.token);
                 return await data.data;
             } else {
                 return await null;
@@ -70,15 +73,7 @@ class APIGateway extends React.Component{
 
     static Logout = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/logout", {
-               method: "POST", 
-            });
-
-            const data = await response.json();
-
-            if (data.status === 200){
-               await alert(data.message); 
-            }
+            localStorage.removeItem('token')
         } catch (error) {
             console.error("Error:", error);
         }
