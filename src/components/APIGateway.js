@@ -29,7 +29,9 @@ class APIGateway extends React.Component{
         try{
             const response = await fetch(`http://localhost:5000/api/audit-history?search=${search_param}`,{
                 method: 'GET',
-                "Authorization": localStorage.getItem('token')
+                headers: {
+                    "Authorization": localStorage.getItem('token')
+                },
             });
 
             const data = await response.json();
