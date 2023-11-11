@@ -1,37 +1,16 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import Grid from '@mui/material/Grid';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TextField from '@mui/material/TextField';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Constants from '../components/Constants';
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
-
-const IssueColor = { color: 'red'};
-const SuggestionColor = {color: 'green'};
+const StyledTableCell = Constants.BW_TABLE_CELL;
+const StyledTableRow = Constants.BW_TABLE_ROW;
 
 // main page section
 function HistoryPage({ historyArray, onParamPass }) {
@@ -59,10 +38,9 @@ function HistoryPage({ historyArray, onParamPass }) {
             <h2>Audit history</h2>
             <Box sx={{ display: 'flex',  alignItems: 'center', p: 2 }}>
               <AccountCircleIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-              <TextField id="search_filename" label="Search filename" variant="filled" 
-              value={param} 
-              onChange={handleSearchInputChange} 
-              onKeyDown={handleSearch}
+              <TextField id="search_filename" label="Search filename" variant="filled" value={param} 
+                onChange={handleSearchInputChange} 
+                onKeyDown={handleSearch}
               />
             </Box>
           </Grid>
@@ -83,12 +61,14 @@ function HistoryPage({ historyArray, onParamPass }) {
             <StyledTableRow key={index}>
               <StyledTableCell>{historyItem.file_name}</StyledTableCell>
               <StyledTableCell>{historyItem.date_uploaded}</StyledTableCell>
-              <StyledTableCell>{historyItem.status}</StyledTableCell>
+              <StyledTableCell style={Constants.GetNotifStatus(historyItem.status)}>
+                {historyItem.status}
+              </StyledTableCell>
               <StyledTableCell>
               {historyItem.vulnerabilities.map((vulnerability, idx) => (
-                <span key={index}>
-                  <p><b><span style={IssueColor}>- Issue: </span></b>{vulnerability.issue}</p>
-                  <p><b><span style={SuggestionColor}>+ Suggestion: </span></b>{vulnerability.suggestion}</p>
+                <span key={idx}>
+                  <p><b><span style={Constants.ISSUE_COLOR}>- Issue: </span></b>{vulnerability.issue}</p>
+                  <p><b><span style={Constants.SUGGESTION_COLOR}>+ Suggestion: </span></b>{vulnerability.suggestion}</p>
                   <br></br>
                 </span>
               ))}

@@ -38,31 +38,31 @@ const Login = ( {LogInSuccess} ) => {
   };
 
   return (
-    <Box style={styleCenter} padding={1}>
+    <Box style={styleCenter}>
       <form onSubmit={handleLogin}>
         <Typography variant="h2" gutterBottom>Login</Typography>
-          <Box>
-            <FormControl>
-              <InputLabel htmlFor="user_name">Username</InputLabel>
-              <Input
-                id="user_name"
-                type="text"
-                value={user_name}
-                onChange={handleUsernameChange}
-              />
-            </FormControl>
-          </Box>
-          <Box>
+        <Box>
           <FormControl>
-              <InputLabel htmlFor="password">Password:</InputLabel>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={handlePasswordChange}
-              />
-            </FormControl>
-          </Box>
+            <InputLabel htmlFor="user_name">Username</InputLabel>
+            <Input
+              id="user_name"
+              type="text"
+              value={user_name}
+              onChange={handleUsernameChange}
+            />
+          </FormControl>
+        </Box>
+        <Box>
+          <FormControl>
+            <InputLabel htmlFor="password">Password:</InputLabel>
+            <Input
+              id="password"
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+          </FormControl>
+        </Box>
         
         <Button variant="contained" type="submit">Login</Button>
       </form>

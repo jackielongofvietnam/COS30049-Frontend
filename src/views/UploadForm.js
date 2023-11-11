@@ -8,7 +8,7 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import APIGateway from '../components/APIGateway.js';
-// import callback, { useCallback } from 'react';
+import Constants from '../components/Constants.js';
 
 
 function UploadForm({ onSubmit }) {
@@ -75,9 +75,6 @@ function UploadForm({ onSubmit }) {
     width: 1,
   });
 
-  const IssueColor = { color: 'red'};
-  const SuggestionColor = {color: 'green'};
-
   return (
     <Box sx={{ m: 6 }}>
       <Grid container direction="row" justifyContent="center" spacing={6}>
@@ -113,15 +110,17 @@ function UploadForm({ onSubmit }) {
             </TableRow>
             <TableRow>
               <TableCell variant="head" colSpan={3} > <b>Status</b> </TableCell>
-              <TableCell scope="row" colSpan={9} >{status}</TableCell>
+              <TableCell scope="row" colSpan={9} style={Constants.GetNotifStatus(status)}>
+                {status}
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell variant="head" colSpan={3} > <b>Vulnerabilities</b> </TableCell>
               <TableCell scope="row" colSpan={9} >
                 {vulne_list.map((vulnerability, index) => (
                   <span key={index}>
-                    <p><b><span style={IssueColor}>- Issue: </span></b>{vulnerability.issue}</p>
-                    <p><b><span style={SuggestionColor}>+ Suggestion: </span></b>{vulnerability.suggestion}</p>
+                    <p><b><span style={Constants.ISSUE_COLOR}>- Issue: </span></b>{vulnerability.issue}</p>
+                    <p><b><span style={Constants.SUGGESTION_COLOR}>+ Suggestion: </span></b>{vulnerability.suggestion}</p>
                     <br></br>
                   </span>
                 ))}

@@ -1,10 +1,10 @@
 import React from 'react';
-const DOMAIN_URL = "http://localhost:5000";
+import Constants from './Constants.js';
 
 class APIGateway extends React.Component{
     static AnalyzeSOLFile = async (file) => {
         try{
-            const response = await fetch(DOMAIN_URL + "/api/audit",{
+            const response = await fetch(Constants.DOMAIN_URL + "/api/audit",{
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json',
@@ -28,7 +28,7 @@ class APIGateway extends React.Component{
 
     static GetAuditHistory = async (search_param) => {
         try{
-            const response = await fetch(DOMAIN_URL + `/api/audit-history?search=${search_param}`,{
+            const response = await fetch(Constants.DOMAIN_URL + `/api/audit-history?search=${search_param}`,{
                 method: 'GET',
                 headers: {
                     "Authorization": localStorage.getItem('token')
@@ -50,7 +50,7 @@ class APIGateway extends React.Component{
 
     static Login = async (user_name, password) => {
         try {
-            const response = await fetch(DOMAIN_URL + "/api/login", {
+            const response = await fetch(Constants.DOMAIN_URL + "/api/login", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"

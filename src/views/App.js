@@ -17,15 +17,6 @@ function App() {
   const [currentPage, setCurrentPage] = useState('upload');
   const [mainHistoryArray, setMainHistoryArray] = useState();
 
-  // useEffect(() => { 
-  //   async function fetchData() {
-  //     const array = await APIGateway.GetAuditHistory("");
-  //     setMainHistoryArray(array);
-  //   }
-  //   fetchData();
-  // }, []);
-  
-
   // this function handles appending file info to the upload history array
   const handleSubmit = async () => {
     const array = await APIGateway.GetAuditHistory("");
