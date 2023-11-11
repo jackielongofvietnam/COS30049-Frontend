@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import UploadForm from './UploadForm';
 import HistoryPage from './HistoryPage';
 import AppBar from '@mui/material/AppBar';
@@ -17,13 +17,13 @@ function App() {
   const [currentPage, setCurrentPage] = useState('upload');
   const [mainHistoryArray, setMainHistoryArray] = useState();
 
-  useEffect(() => { 
-    async function fetchData() {
-      const array = await APIGateway.GetAuditHistory("");
-      setMainHistoryArray(array);
-    }
-    fetchData();
-  }, []);
+  // useEffect(() => { 
+  //   async function fetchData() {
+  //     const array = await APIGateway.GetAuditHistory("");
+  //     setMainHistoryArray(array);
+  //   }
+  //   fetchData();
+  // }, []);
   
 
   // this function handles appending file info to the upload history array
@@ -38,9 +38,9 @@ function App() {
   }
 
   const handleLogIn = () => {
-    // localStorage.setItem('user_name', )
     setLoggedIn(true);
     setCookie('loggedIn', true, { path: '/' })
+    handleNavigation('upload');
   };
 
   const logout = async () => {
@@ -63,6 +63,10 @@ function App() {
 
   const handleNavigation = (page) => {
     setCurrentPage(page);
+
+    if (page === 'history') {
+      handleSubmit();
+    }
   };
 
   if (loggedIn){

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Tab } from '@mui/material';
+import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
 import Grid from '@mui/material/Grid';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
@@ -34,6 +33,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const IssueColor = { color: 'red'};
 const SuggestionColor = {color: 'green'};
 
+// main page section
 function HistoryPage({ historyArray, onParamPass }) {
   const [param, setParam] = useState('');
   var array = [];
@@ -41,9 +41,14 @@ function HistoryPage({ historyArray, onParamPass }) {
     array = [...historyArray];
   } 
 
-  const handleSearchInput = (event) => {
+  const handleSearchInputChange = (event) => {
     setParam(event.target.value);
-    onParamPass(param);
+  };
+
+  const handleSearch = (event) => {
+    if (event.key === 'Enter'){
+      onParamPass(param);
+    }
   }
 
   return (
@@ -54,7 +59,11 @@ function HistoryPage({ historyArray, onParamPass }) {
             <h2>Audit history</h2>
             <Box sx={{ display: 'flex',  alignItems: 'center', p: 2 }}>
               <AccountCircleIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-              <TextField id="search_filename" label="Search filename" variant="filled" value={param} onChange={handleSearchInput} />
+              <TextField id="search_filename" label="Search filename" variant="filled" 
+              value={param} 
+              onChange={handleSearchInputChange} 
+              onKeyDown={handleSearch}
+              />
             </Box>
           </Grid>
         </Grid>
